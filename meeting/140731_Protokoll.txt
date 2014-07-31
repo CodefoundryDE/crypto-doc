@@ -1,0 +1,44 @@
+Meeting 31.07.2014
+Protokoll von: Franzi
+Teilnehmer: Franzi, Korbi, Martin, Michi
+
+Erstes Meeting; Grundsätzliche Überlegungen
+
+Eine Ideensammlung gibt es als MindMap in der Datei [GitHub-Doc-Repo]/MindMap.[pdf|mm]
+
+Erste Idee: Die Nachricht samt allen Headern wird Ende-zu-Ende-verschlüsselt; Server weiß daher nicht wer der Empfänger ist; 
+            Deswegen wird die Nachricht gebroadcastet; Nur der rechtmäßige Empfänger besitzt den richtigen Schlüssel
+    Vorteile:  Potentieller Angreifer kann keine Netzwerkanalyse betreiben, da Nachrichten an alle Teilnehmer rausgehen
+    Nachteile: Traffic vervielfacht sich enorm
+               Server ist komplizierter zu implementieren, da man zwecks Traffic-Reduzierung ein Cluster bilden müsste
+               Damit für eine Nachricht der richtige Server im Cluster gefunden werden kann, müsste man Infos mitschicken, die eine Netzwerkanalyse möglich machen
+
+Wegen der Nachteile wird diese Idee verworfen.
+
+
+Zweite Idee: Die Nachricht wird mit _fast_ allen Headern Ende-zu-Ende-verschlüsselt; Nur eine Empfänger-Adresse bleibt für den Server lesbar;
+             Der Server wirft die Empfänger-Adresse weg und schickt nur noch den Ende-zu-Ende-verschlüsselten Teil an den Empfänger weiter;
+    Vorteile:  Server wäre wegen simplem Store-and-Forward einfach zu implementieren
+               Nur direkter und damit "normaler" Traffic
+    Nachteile: Netzwerkanalyse wird ermöglicht 
+
+Die Vorteile überwiegen hier, deswegen wird sich für Idee Nr. 2 entschieden.
+
+
+Ein Protokoll-prä-Entwurf findet sich unter [GitHub-Doc-Repo]/protokoll/Protokoll - Netzdiagramm.[pdf|vsdx]
+
+Grundsätzlich soll eine Android-App (Java) gebaut werden; 
+Server-Implementierung ist noch nicht vollständig geklärt, es bietet sich jedoch eine fertige Message Queue an (RabbitMQ?);
+
+
+ToDo bis zum nächsten Meeting (noch kein Datum festgelegt):
+
+Franzi: Richtige Protokolle für Transport- und Nachrichten-Security aussuchen (Krypto-Buch etc)
+        -> Im nächsten Meeting Besprechung
+        
+Korbi:  Nachrichten-Header zu Ende denken
+        -> Im nächsten Meeting Besprechung
+        
+(Martin: Mal das Android-SDK anschauen) 
+
+Alle anderen: Ordentliches Requirements Engineering im Stil der SE-Vorlesung                          
